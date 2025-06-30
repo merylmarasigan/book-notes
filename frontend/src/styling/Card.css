@@ -1,0 +1,58 @@
+
+/* Default styles for mobile */
+.container {
+    width: 100%;
+    padding: 0px;
+    font-size: 14px;
+}
+  
+/* Styles for tablets and larger (768px and up) */
+@media (min-width: 768px) {
+    .card {
+     width: 50%;
+     padding: 20px;
+     border-radius: 20px;
+     margin: 15px;
+    }
+
+    .profile-pic{
+        width: 30px;
+        margin-right: 10px;
+    }
+    .user-profile{
+        display: flex;
+        align-items:center ;
+    }
+  
+    .card-info{
+        display: flex;
+        align-items: center;
+    }
+
+
+    .book-info, .review-info{
+        /* border: orange 1px solid; */
+        margin-left: 10px;
+    }
+
+    .title{
+        margin-bottom: 0px;
+    }
+
+    .author{
+        margin-top: 0px;
+    }
+
+    /* .outer-img{
+        display: flex;
+        width: 100%;
+        max-width: 120px;
+        aspect-ratio: 2/3;
+    } */
+    .book-cover{
+        width: 120px;
+        height: 180px;
+        object-fit: cover;
+    }
+
+  }

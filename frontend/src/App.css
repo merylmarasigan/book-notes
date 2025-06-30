@@ -1,5 +1,11 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  /* border: red solid 1px; */
+ 
+}
+.brown{
+  color: #FDF4E3; /* Golden honey */
+  background-color: #2F1B14; /* Very dark brown - EXCELLENT contrast */
 }
 
 .App-logo {
