@@ -1,0 +1,37 @@
+.input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    width: 100%;
+}
+h1, p{
+    color: white;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* width: 50%; */
+    align-items: center;
+    justify-content: center;
+}
+
+input, textarea{
+    width: 50%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+}
+
+button{
+    cursor: pointer ;
+    padding: 5px;
+}
+
+.rating-UI{
+    margin-bottom: 20px;
+}

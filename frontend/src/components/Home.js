@@ -7,7 +7,7 @@ const Home = () => {
             title: 'The Hunger Games',
             author: 'Suzanne Collins',
             date:'Sep 5, 2021',
-            rating:'3.5',
+            rating:'3',
             review: "everyone on morpheus' ship was non-binary"
 
         },

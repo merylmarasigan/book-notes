@@ -1,7 +1,8 @@
 import './App.css';
 import Navbar from '../src/components/Navbar'
 import Home from './components/Home';
-
+import Input from './components/Input';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 function App() {
   return (
     <div className="App"
@@ -13,8 +14,16 @@ function App() {
       minHeight: '100vh'
     }}
     >
+      
+      <Router>
       <Navbar/>
-      <Home/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/create' element={<Input/>}/>
+
+        </Routes>
+      </Router>
+      {/* <Input/> */}
 
     </div>
   );

@@ -2,7 +2,7 @@ import '../styling/Card.css'
 
 import THG from '../../src/THG.jpg'
 import icon from '../../src/usericon.png'
-
+import Rating from './Rating'
 const Card = (props) => {
     const {user, title, author,date,rating,review} = props;
     return (
@@ -29,7 +29,7 @@ const Card = (props) => {
                     </div>
 
                     <div className='review-info'>
-                        <p>{rating}/5 stars</p>
+                        <Rating rating={rating}/>
                         <p>{review}</p>
 
                     </div>

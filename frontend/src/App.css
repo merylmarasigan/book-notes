@@ -8,6 +8,10 @@
   background-color: #2F1B14; /* Very dark brown - EXCELLENT contrast */
 }
 
+button{
+  border-radius: 10px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
