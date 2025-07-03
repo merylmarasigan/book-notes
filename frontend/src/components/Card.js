@@ -29,7 +29,7 @@ const Card = (props) => {
                     </div>
 
                     <div className='review-info'>
-                        <Rating rating={rating}/>
+                        <Rating rating={rating} className='star-ratings'/>
                         <p>{review}</p>
 
                     </div>
