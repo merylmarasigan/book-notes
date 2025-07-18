@@ -9,9 +9,10 @@ const Input = () => {
     const colors = {brown: " #2F1B14", white: "#FDF4E3"};
     const stars = Array(5).fill(0);
     const [userName, setUserName] = useState('');
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
-    const [submitted, setSubmitted ] = useState(false)
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [submitted, setSubmitted ] = useState(false);
+    const [review, setReview ] = useState("");
 
     const handleStarClick = (index) => {
         console.log(`star ${index + 1}clicked`);
@@ -27,7 +28,8 @@ const Input = () => {
                 username: userName,
                 title: title,
                 author: author,
-                rating: rating
+                rating: rating,
+                review: review
             }
     
             console.log('FULL REVIEW:',fullReview)
@@ -72,7 +74,7 @@ const Input = () => {
                                 ></FaStar>
                         })}
                     </div>
-                    <textarea rows='5' placeholder='Write your review'></textarea>
+                    <textarea rows='5' placeholder='Write your review' value={review} onChange={(event) => {setReview(event.target.value)}}></textarea>
                     <button className='brown'>Submit</button>
                     {incompleteInputs === true && <p>Please enter your name, the book title, author, and rating before hitting submit!</p>}
                 </form>
