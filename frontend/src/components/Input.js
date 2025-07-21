@@ -1,6 +1,8 @@
 import '../styling/Input.css'
 import React, { useState } from 'react';
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Input = () => {
@@ -14,6 +16,8 @@ const Input = () => {
     const [submitted, setSubmitted ] = useState(false);
     const [review, setReview ] = useState("");
 
+    const navigate = useNavigate(); // Initialize navigate hook
+
     const handleStarClick = (index) => {
         console.log(`star ${index + 1}clicked`);
         setRating(index + 1);
@@ -23,22 +27,54 @@ const Input = () => {
         event.preventDefault();
         setSubmitted(true);
 
-        if(!submitted || (userName !== '' && title !== '' && author !== '' && rating != 0)){
-            const fullReview = {
-                username: userName,
-                title: title,
-                author: author,
-                rating: rating,
-                review: review
-            }
+        // if(!submitted || (userName !== '' && title !== '' && author !== '' && rating !== 0)){
+        //     const fullReview = {
+        //         username: userName,
+        //         title: title,
+        //         author: author,
+        //         rating: rating,
+        //         review: review
+        //     }
     
-            console.log('FULL REVIEW:',fullReview)
-            setIncompleteInputs(false)
+        //     console.log('FULL REVIEW:',fullReview);
+        //     setIncompleteInputs(false);
+        //     setSubmitted(true);
 
-        }else{
-            setIncompleteInputs(true)
+        // }else{
+        //     setIncompleteInputs(true)
+            
+        // }
+
+        if(userName === '' || title === '' | author === ''| rating === 0){
+            setIncompleteInputs(true);
+            return;
         }
+
+        setIncompleteInputs(false);
+        const fullReview = {
+            username: userName,
+            title: title, 
+            author: author, 
+            rating: rating, 
+            review: review
+        };
+
+        //write to database
+
+        setSubmitted(true);
+
+        setUserName('');
+        setTitle('');
+        setAuthor('');
+        setRating(0);
+        setReview('');
        
+        navigate('/', {
+            state:{
+                message: 'Review submitted!',
+                newReview: fullReview
+            }
+        })
        
 
     }
