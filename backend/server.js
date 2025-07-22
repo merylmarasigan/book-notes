@@ -1,5 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import pg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = 5000;
@@ -11,30 +15,52 @@ app.use(cors({
     credentials: true
 }));
 
+const db = new pg.Client({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT || 5432
+});
+
+
+db.connect()
+    .then(() => console.log('✅ Database connected!'))
+    .catch(err => {
+        console.error('❌ Database connection failed:', err.message);
+        console.log('⚠️  Server will start without database');
+    });
+
 app.use(express.json());
 
-// app.get('/api/message', (req, res) => {
-//     console.log('📨 API message endpoint accessed');
-//     res.json({ 
-//         message: 'Hello from the backend!',
-//         timestamp: new Date().toISOString()
-//     });
-// });
 
-// ✅ GOOD - Handle favicon separately
+// Handle favicon separately
 app.get('/favicon.ico', (req, res) => {
     res.status(204).end(); // No content, no database query
 });
 
 
-
 app.get('/', (req, res) => {
-    console.log('/ path accessed')
+
     res.json({ 
         message: 'Backend server is running!',
         status: 'success'
     });
+
 });
+app.post('/post', (req, res) => {
+    //console.log('/ path accessed')
+    // console.log(req.body);
+    const {username, title, author, rating, review} = req.body;
+    // console.log(username, title, author, rating, review);
+    db.query('INSERT INTO reviews (username, title, author, rating, review) VALUES ($1, $2, $3, $4, $5)',
+        [username, title, author, rating, review]
+    );
+    res.json({ 
+        status: 'success'
+    });
+});
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);

@@ -1,10 +1,10 @@
 import Card from "./Card";
 import '../styling/Home.css'
 import React, { useState, useEffect } from 'react';
-
 const Home = () => {
     const [message, setMessage] = useState('Loading...');
     const [error, setError] = useState(null);
+    const [reviews, setReviews] = useState([]);
 
     const fetchMessage = async () => {
         try {
@@ -31,8 +31,28 @@ const Home = () => {
         }
     };
 
+    const fetchReviews = async () => {
+        try{
+            const response = await fetch('http://localhost:5000/');
+
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            setReviews(data.message);
+            setError(null);
+        }catch(err){
+            console.error('❌ Fetch error:', err);
+            setError(err.message);
+            setMessage('Failed to load message from backend');
+        }
+        
+    }
+
     useEffect(() => {
-        fetchMessage();
+        fetchReviews();
     }, []);
 
     const books = [
@@ -95,7 +115,7 @@ const Home = () => {
                     <span style={{ color: 'green' }}>{message}</span>
                 )}
             </div> */}
-
+            {/* <p>{message}</p> */}
             <div className='reviews'>
                 {books.map((book, idx) => {
                     return <Card 

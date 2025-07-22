@@ -2,8 +2,7 @@ import '../styling/Input.css'
 import React, { useState } from 'react';
 import { FaStar } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-
-
+import axios from 'axios';
 
 const Input = () => {
     const [rating, setRating] = useState(0);
@@ -23,27 +22,9 @@ const Input = () => {
         setRating(index + 1);
     }
 
-    const handleSubmit =(event) => {
+    const handleSubmit =async (event) => {
         event.preventDefault();
         setSubmitted(true);
-
-        // if(!submitted || (userName !== '' && title !== '' && author !== '' && rating !== 0)){
-        //     const fullReview = {
-        //         username: userName,
-        //         title: title,
-        //         author: author,
-        //         rating: rating,
-        //         review: review
-        //     }
-    
-        //     console.log('FULL REVIEW:',fullReview);
-        //     setIncompleteInputs(false);
-        //     setSubmitted(true);
-
-        // }else{
-        //     setIncompleteInputs(true)
-            
-        // }
 
         if(userName === '' || title === '' | author === ''| rating === 0){
             setIncompleteInputs(true);
@@ -60,23 +41,29 @@ const Input = () => {
         };
 
         //write to database
+        try{
+            const response = await axios.post("http://localhost:5000/post", fullReview, {
+                headers: {'Content-Type': 'application/json'}
+            })
 
-        setSubmitted(true);
+            setSubmitted(true);
 
-        setUserName('');
-        setTitle('');
-        setAuthor('');
-        setRating(0);
-        setReview('');
-       
-        navigate('/', {
-            state:{
-                message: 'Review submitted!',
-                newReview: fullReview
-            }
-        })
-       
+            setUserName('');
+            setTitle('');
+            setAuthor('');
+            setRating(0);
+            setReview('');
+        
+            navigate('/', {
+                state:{
+                    message: 'Review submitted!',
+                    newReview: fullReview
+                }
+            })
 
+        }catch(err){
+            console.log('❌ error writing to database!');
+        }
     }
 
 
