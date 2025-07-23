@@ -80,10 +80,6 @@ const Input = () => {
                     <input type='text' placeholder='Enter book author name' value={author}
                     onChange={(event) => {setAuthor(event.target.value)}}></input>
 
-                    
-                    {/* <div className='rating-section'>
-                        <Rating/>
-                    </div> */}
                     <div className='rating-UI'>
 
                         {stars.map((s,index) => {

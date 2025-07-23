@@ -41,7 +41,7 @@ const Home = () => {
 
             const data = await response.json();
 
-            setReviews(data.message);
+            setReviews(data.bookReviews);
             setError(null);
         }catch(err){
             console.error('❌ Fetch error:', err);
@@ -70,7 +70,7 @@ const Home = () => {
             author: 'John Green',
             date: 'March 12, 2012',
             rating: '3',
-            review: "rereading as a grown woman, ngl, I would've vomitted if I Augustus Waters ever told me 'you put the killing teeth in your mouth, but dont't give it the power to kill you'"
+            review: ""
         },
         {
             user: 'Aba',
@@ -84,43 +84,12 @@ const Home = () => {
 
     return (
         <div className='home'>
-            {/* Backend Message Display */}
-            {/* <div style={{ 
-                padding: '10px', 
-                margin: '10px 0',
-                backgroundColor: error ? '#ffebee' : '#e8f5e8',
-                border: `1px solid ${error ? '#f44336' : '#4caf50'}`,
-                borderRadius: '5px'
-            }}>
-                <strong>Backend Message: </strong>
-                {error ? (
-                    <span style={{ color: 'red' }}>
-                        {message} (Error: {error})
-                        <button 
-                            onClick={fetchMessage}
-                            style={{ 
-                                marginLeft: '10px', 
-                                padding: '5px 10px',
-                                backgroundColor: '#f44336',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '3px',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            Retry
-                        </button>
-                    </span>
-                ) : (
-                    <span style={{ color: 'green' }}>{message}</span>
-                )}
-            </div> */}
-            {/* <p>{message}</p> */}
+           
             <div className='reviews'>
-                {books.map((book, idx) => {
+                {reviews.map((book, idx) => {
                     return <Card 
                         key={idx} 
-                        user={book.user}
+                        user={book.username}
                         title={book.title}
                         author={book.author}
                         date={book.date}

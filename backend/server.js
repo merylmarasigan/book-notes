@@ -40,28 +40,45 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    try{
+        const result = await db.query('SELECT * FROM reviews');
+        res.json({ 
+            message: 'Backend server is running!',
+            status: 'success', 
+            bookReviews: result.rows
+        });
 
-    res.json({ 
-        message: 'Backend server is running!',
-        status: 'success'
-    });
+    }catch(err){
+        console.error('error executing query', err.stack);
+        res.status(500).json({ 
+            message: 'Database error',
+            status: 'error'
+        });
+
+    }
 
 });
-app.post('/post', (req, res) => {
-    //console.log('/ path accessed')
-    // console.log(req.body);
-    const {username, title, author, rating, review} = req.body;
-    // console.log(username, title, author, rating, review);
-    db.query('INSERT INTO reviews (username, title, author, rating, review) VALUES ($1, $2, $3, $4, $5)',
-        [username, title, author, rating, review]
-    );
-    res.json({ 
-        status: 'success'
-    });
+
+app.post('/post', async (req, res) => {
+    try {
+        const {username, title, author, rating, review} = req.body;
+        await db.query(
+            'INSERT INTO reviews (username, title, author, rating, review) VALUES ($1, $2, $3, $4, $5)',
+            [username, title, author, rating, review]
+        );
+
+        res.json({ 
+            status: 'success'
+        });
+    } catch (err) {
+        console.error('Error inserting review:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to save review'
+        });
+    }
 });
-
-
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
